@@ -1,0 +1,693 @@
+<html><head></head><body><turbo-frame id="event_4365_ledger">
+    
+<div class="filterbar flex flex-row justify-between items-center width-100" style="gap: 16px">
+  <form class="flex-auto" action="/htop/ledger" accept-charset="UTF-8" method="get">
+    <div class="input input-group max-w-none" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="search" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M14,9c-2.761,0 -5,2.239 -5,5c0,2.761 2.239,5 5,5c1.387,0 2.641,-0.564 3.548,-1.477c0.899,-0.905 1.452,-2.148 1.452,-3.523c0,-2.761 -2.239,-5 -5,-5Zm-7,5c0,-3.866 3.134,-7 7,-7c3.866,0 7,3.134 7,7c0,1.257 -0.332,2.436 -0.912,3.456c-0.244,0.431 -0.212,0.981 0.137,1.332l3.984,4.007c0.389,0.391 0.388,1.025 -0.004,1.414c-0.392,0.389 -1.025,0.388 -1.414,-0.004l-3.97,-3.992c-0.352,-0.354 -0.908,-0.387 -1.341,-0.138c-1.025,0.588 -2.214,0.925 -3.48,0.925c-3.866,0 -7,-3.134 -7,-7Z"></path></g></svg>
+      <input placeholder="Type / to search..." data-behavior="search" type="text" name="q" id="q">
+    </div>
+</form>
+  
+
+    <div data-controller="menu" data-menu-placement-value="bottom-end">
+      <button type="button" class="tooltipped tooltipped--s pop menu__toggle menu__toggle--arrowless overflow-visible" aria-label="Export transactions" data-action="menu#toggle click@document->menu#close keydown@document->menu#keydown" data-menu-target="toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="download" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path fill-rule="evenodd" d="M17 7C19.4194 7 21.4374 8.71837 21.9002 11.0012C24.1171 10.9472 26 12.7809 26 15C26 17.2091 24.2091 19 22 19C21.4477 19 21 18.5523 21 18C21 17.4477 21.4477 17 22 17C23.1046 17 24 16.1046 24 15C24 13.8954 23.1046 13 22 13C21.7137 13 21.4301 13.0367 21.1499 13.0962C20.6068 13.2113 20 12.5551 20 12C20 10.3432 18.6569 9 17 9C15.2449 9 14.1626 10.151 13.7245 11.534C13.5099 12.2114 12.7936 12.6737 12.1486 12.3754C11.6937 12.1651 11.282 12 11 12C10.4477 12 10 12.4477 10 13C10.254 14.0159 9.48563 15 8.43845 15H8C7.44772 15 7 15.4477 7 16C7 16.5523 7.44772 17 8 17H10C10.5523 17 11 17.4477 11 18C11 18.5523 10.5523 19 10 19H8C6.34314 19 5 17.6569 5 16C5 14.3431 6.34314 13 8 13C8 11.3431 9.34314 10 11 10C11.4651 10 11.9055 10.1058 12.2983 10.2947C12.9955 8.37292 14.8374 7 17 7ZM19.7071 22.7071L16.7071 25.7071C16.3166 26.0976 15.6834 26.0976 15.2929 25.7071L12.2929 22.7071C11.9024 22.3166 11.9024 21.6834 12.2929 21.2929C12.6834 20.9024 13.3166 20.9024 13.7071 21.2929L15 22.5858V17C15 16.4477 15.4477 16 16 16C16.5523 16 17 16.4477 17 17V22.5858L18.2929 21.2929C18.6834 20.9024 19.3166 20.9024 19.7071 21.2929C20.0976 21.6834 20.0976 22.3166 19.7071 22.7071Z" clip-rule="evenodd"></path></g></svg>
+      </button>
+      <div class="menu__content menu__content--2 menu__content--compact h5" data-menu-target="content">
+        <a target="_blank" href="/exports/htop.csv">All transactions (CSV)</a>
+        <a target="_blank" href="/exports/htop.json">All transactions (JSON)</a>
+        <a target="_blank" href="/exports/htop.ledger">All transactions (Ledger)</a>
+        <a href="/htop/statements">Monthly statements</a>
+      </div>
+    </div>
+
+
+</div>
+
+  <div class="flex items-center filter-menu">
+    <div data-controller="menu" data-menu-append-to-value="turbo-frame#ledger" data-menu-placement-value="bottom-start">
+  <button type="button" aria-label="Add filter..." class="tooltipped tooltipped--s pop menu__toggle menu__toggle--arrowless overflow-visible" data-menu-target="toggle" data-action="menu#toggle click@document->menu#close keydown@document->menu#keydown">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="filter" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path fill-rule="evenodd" d="M7 11a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H8a1 1 0 0 1-1-1zM10 16a1 1 0 0 1 1-1h10a1 1 0 0 1 0 2H11a1 1 0 0 1-1-1zM13 21a1 1 0 0 1 1-1h4a1 1 0 0 1 0 2h-4a1 1 0 0 1-1-1z" clip-rule="evenodd"></path></g></svg>
+  </button>
+  <div class="menu__content menu__content--2 menu__content--compact h5" style="width: 320px; padding: 0.5rem;" data-menu-target="content" data-controller="filter">
+    <div data-controller="tabs" data-tabs-default-tab-value="type">
+      <button id="user" data-tabs-target="btn" data-action="click->tabs#select">User</button>
+      <button id="type" data-tabs-target="btn" data-action="click->tabs#select">Type</button>
+      <button id="date" data-tabs-target="btn" data-action="click->tabs#select">Date</button>
+      <button id="amount" data-tabs-target="btn" data-action="click->tabs#select">Amount</button>
+      <button id="receipts" data-tabs-target="btn" data-action="click->tabs#select">Receipts</button>
+      <div class="menu__divider--filter-tab"></div>
+
+      <div data-tabs-target="tab" id="user">
+          <div class="flex items-center">
+            <a class="flex-auto flex items-center menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=donation&amp;user=11007">
+
+              <div class="avatar-grow line-height-0 mr1">
+                <img loading="lazy" alt="B" width="18" height="18" class="rounded-full shrink-none" src="https://gravatar.com/avatar/e2a11044626faa22e7c50825e827b082?s=36&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/B/36/33d6a6/fff">
+              </div>
+              BenBE
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto flex items-center menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=donation&amp;user=11008">
+
+              <div class="avatar-grow line-height-0 mr1">
+                <img loading="lazy" alt="CG" width="18" height="18" class="rounded-full shrink-none" src="https://gravatar.com/avatar/38d82e1b69bb972456b0305a3f98a804?s=36&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/CG/36/5bc0de/fff">
+              </div>
+              Christian Göttsche
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto flex items-center menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=donation&amp;user=11006">
+
+              <div class="avatar-grow line-height-0 mr1">
+                <img loading="lazy" alt="D" width="18" height="18" class="rounded-full shrink-none" src="https://hcb.hackclub.com/storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NzI3NjMsInB1ciI6ImJsb2JfaWQifX0=--caed1f9de321312f99028cc85c6a0194a817bd6d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJwbmciLCJ0aHVtYm5haWwiOiIzNngzNl4iLCJncmF2aXR5IjoiY2VudGVyIiwiZXh0ZW50IjoiMzZ4MzYifSwicHVyIjoidmFyaWF0aW9uIn19--bd6977da184b4129439f31cb726999d37e054cb1/DLange.png">
+              </div>
+              DLange
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto flex items-center menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=donation&amp;user=10983">
+
+              <div class="avatar-grow line-height-0 mr1">
+                <img loading="lazy" alt="NS" width="18" height="18" class="rounded-full shrink-none" src="https://gravatar.com/avatar/71410ab7ab8279092a34e0acc0806397?s=36&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/NS/36/33d6a6/fff">
+              </div>
+              Nathan Scott
+</a>          </div>
+      </div>
+      <div data-tabs-target="tab" id="type">
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=ach_transfer">
+              ACH transfer
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=card_charge">
+              Card charge
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=check_deposit">
+              Check deposit
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action menu__action--active" data-turbo-prefetch="false" href="/htop/transactions?type=donation">
+              Donation
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=fiscal_sponsorship_fee">
+              Fiscal sponsorship fee
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=hcb_transfer">
+              HCB transfer
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=invoice">
+              Invoice
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=mailed_check">
+              Mailed check
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=paypal_transfer">
+              PayPal transfer
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=refund">
+              Refund
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=reimbursement">
+              Reimbursement
+</a>          </div>
+          <div class="flex items-center">
+            <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?type=wire">
+              Wire
+</a>          </div>
+      </div>
+      <div data-tabs-target="tab" id="date">
+        <form class="flex-auto p1" action="/htop/ledger" accept-charset="UTF-8" method="get">
+          <p class="bold mb0 mt0">Transactions after...</p>
+          <input class="border mb1" type="date" name="start" id="start">
+          <p class="bold mb0 mt0">Transactions before...</p>
+          <input class="border mb1" type="date" name="end" id="end">
+
+            <input type="hidden" name="action" id="action" value="transactions" autocomplete="off">
+            <input type="hidden" name="controller" id="controller" value="events" autocomplete="off">
+            <input type="hidden" name="event_id" id="event_id" value="htop" autocomplete="off">
+            <input type="hidden" name="type" id="type" value="donation" autocomplete="off">
+
+          <div class="flex justify-start">
+            <input type="submit" name="commit" value="Filter transactions" data-disable-with="Filter transactions">
+          </div>
+</form>      </div>
+      <div data-tabs-target="tab" id="amount">
+        <form class="flex-auto p1" action="/htop/ledger" accept-charset="UTF-8" method="get">
+
+          <p class="bold mb0 mt0">Transactions more than...</p>
+          <div class="flex mb1">
+            <span class="bold muted flex self-end items-center justify-center" style="width: 1rem; height: 48px;">$</span>
+            <input placeholder="50.00" step="0.01" data-controller="truncate-decimal" data-action="truncate-decimal#truncate blur->truncate-decimal#pad" type="number" name="minimum_amount" id="minimum_amount">
+          </div>
+
+          <p class="bold mb0 mt0">Transactions less than...</p>
+          <div class="flex mb1">
+            <span class="bold muted flex self-end items-center justify-center" style="width: 1rem; height: 48px;">$</span>
+            <input placeholder="500.00" step="0.01" data-controller="truncate-decimal" data-action="truncate-decimal#truncate blur->truncate-decimal#pad" type="number" name="maximum_amount" id="maximum_amount">
+          </div>
+
+            <input type="hidden" name="action" id="action" value="transactions" autocomplete="off">
+            <input type="hidden" name="controller" id="controller" value="events" autocomplete="off">
+            <input type="hidden" name="event_id" id="event_id" value="htop" autocomplete="off">
+            <input type="hidden" name="type" id="type" value="donation" autocomplete="off">
+
+          <div class="flex justify-start">
+            <input type="submit" name="commit" value="Filter transactions" data-disable-with="Filter transactions">
+          </div>
+</form>      </div>
+      <div data-tabs-target="tab" id="receipts">
+        <div class="flex items-center">
+          <a class="flex-auto menu__action " data-turbo-prefetch="false" href="/htop/transactions?missing_receipts=true&amp;type=donation">Missing receipts</a>
+        </div>
+        <div>
+          <a class="flex-auto menu__action menu__action--active" data-turbo-prefetch="false" href="/htop/transactions?type=donation">All transactions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <a class="-ml-2 pop muted tooltipped tooltipped--s" aria-label="Clear filters" data-turbo-prefetch="false" href="/htop/ledger">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="view-close" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M11.121,9.707c-0.39,-0.391 -1.024,-0.391 -1.414,0c-0.391,0.39 -0.391,1.024 0,1.414l4.95,4.95l-4.95,4.95c-0.391,0.39 -0.391,1.023 0,1.414c0.39,0.39 1.024,0.39 1.414,0l4.95,-4.95l4.95,4.95c0.39,0.39 1.023,0.39 1.414,0c0.39,-0.391 0.39,-1.024 0,-1.414l-4.95,-4.95l4.95,-4.95c0.39,-0.39 0.39,-1.024 0,-1.414c-0.391,-0.391 -1.024,-0.391 -1.414,0l-4.95,4.95l-4.95,-4.95Z"></path></g></svg>
+</a>
+    <div class="filter-menu__chips">
+        <div class="badge badge-large bg-muted">
+          Donation
+          <a class="flex items-center" data-turbo-prefetch="false" href="/htop/transactions">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="view-close" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M11.121,9.707c-0.39,-0.391 -1.024,-0.391 -1.414,0c-0.391,0.39 -0.391,1.024 0,1.414l4.95,4.95l-4.95,4.95c-0.391,0.39 -0.391,1.023 0,1.414c0.39,0.39 1.024,0.39 1.414,0l4.95,-4.95l4.95,4.95c0.39,0.39 1.023,0.39 1.414,0c0.39,-0.391 0.39,-1.024 0,-1.414l-4.95,-4.95l4.95,-4.95c0.39,-0.39 0.39,-1.024 0,-1.414c-0.391,-0.391 -1.024,-0.391 -1.414,0l-4.95,4.95l-4.95,-4.95Z"></path></g></svg>
+</a>        </div>
+    </div>
+  </div>
+
+
+      <div class="table-container" data-tour-step="transactions">
+        <table>
+          <thead>
+          <tr>
+            <th></th>
+            <th>Date</th>
+            <th>Description</th>
+            <th class="right-align">Amount</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody data-behavior="transactions">
+          <tr class="transaction transaction--negative muted">
+  <td class="transaction__icon transaction__fee_icon tooltipped tooltipped--e" aria-label="Fiscal sponsorship fee">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 32 32" style=""><path d="M16 8.018a2 2 0 0 0-.194.078 9 9 0 0 0-.888.46 35 35 0 0 0-2.716 1.761 51 51 0 0 0-2.435 1.814c-.505.396-1.084.85-2.06 1.576a.999.999 0 1 1-1.414-1.414c2.208-1.793 2.606-2.092 4.755-3.61a38 38 0 0 1 2.878-1.864c.401-.229.78-.425 1.077-.555.262-.115.64-.264.997-.264.358 0 .735.149.997.264.297.13.676.326 1.077.555a38 38 0 0 1 2.878 1.864c2.15 1.518 2.548 1.817 4.755 3.61a1 1 0 1 1-1.414 1.414 92 92 0 0 1-2.06-1.576 51 51 0 0 0-2.435-1.814 35 35 0 0 0-2.716-1.761 9 9 0 0 0-.888-.46A2 2 0 0 0 16 8.018M7 24a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H8a1 1 0 0 1-1-1"></path><path d="M16 22a1 1 0 0 1-1-1v-7a1 1 0 0 1 2 0v7a1 1 0 0 1-1 1M21 22a1 1 0 0 1-1-1v-7a1 1 0 0 1 2 0v7a1 1 0 0 1-1 1M11 22a1 1 0 0 1-1-1v-7a1 1 0 0 1 2 0v7a1 1 0 0 1-1 1"></path><path d="M27.386 27.386C29.15 25.622 30 22.414 30 16c0-6.415-.85-9.622-2.614-11.386S22.414 2 16 2s-9.622.85-11.386 2.614S2 9.585 2 16s.85 9.622 2.614 11.386S9.586 30 16 30s9.622-.85 11.386-2.614M32 16c0 12.8-3.2 16-16 16S0 28.8 0 16 3.2 0 16 0s16 3.2 16 16"></path></svg>
+  </td>
+  <td><time datetime="2025-05-13T00:43:17Z" data-local="time" data-format="%b %e, %Y">May 13, 2025</time></td>
+  <td class="transaction__memo"><span class="badge bg-transparent border border-dashed border-muted m0 mr1 bg-muted">Pending</span>Fiscal sponsorship</td>
+  <td class="nowrap text-right">
+    -$21.00
+  </td>
+  <td></td>
+</tr>
+
+
+          
+
+          <tr class="transaction transaction--positive " id="vgH4x5K">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="support" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M 9 0.0236206C 9.62299 0.00744629 10.2887 0 11 0C 21.0833 0 22 1.5 22 8C 22 14.5 21.0833 16 11 16C 10.6595 16 10.3294 15.9982 10.0095 15.9947L 10.0082 15.9949C 10.0077 15.995 10.0071 15.9952 10.0067 15.9955L 5.55469 18.9636C 4.89014 19.4066 4 18.9302 4 18.1315L 4 15.4624C 4 15.4601 3.99835 15.4581 3.99609 15.4575C 1.01367 14.723 0.223999 13.1274 0.046051 10C 0.0114746 9.3927 0 8.72772 0 8C 0 1.95856 0.791901 0.236511 9 0.0236206ZM 2.47714 12.2372C 2.13568 11.5002 2 10.2927 2 8C 1.99951 6.41864 2.03903 5.33221 2.24951 4.4577C 2.41556 3.659 2.50861 3.43878 2.96548 3.12634C 3.3237 2.84076 3.99329 2.52826 5.34534 2.31049C 6.72906 2.08453 8.50272 2.00055 10.9492 2L 11 2C 13.4727 1.99945 15.2614 2.08295 16.6547 2.31049C 18.0067 2.52826 18.6763 2.84076 19.0345 3.12634C 19.4914 3.43878 19.5844 3.659 19.7505 4.4577C 19.961 5.33221 20.0005 6.41864 20 8C 20.0005 9.58136 19.961 10.6678 19.7505 11.5423C 19.5844 12.341 19.4914 12.5612 19.0345 12.8737C 18.6763 13.1592 18.0067 13.4717 16.6547 13.6895C 15.2614 13.9171 13.4727 14.0005 11 14C 10.6648 14 10.3458 13.9983 10.0316 13.9948C 9.73151 14.014 9.15842 14.1841 8.89725 14.3315L 6 16.263L 6 15.4624C 6 14.4967 5.32776 13.7258 4.47443 13.5156C 3.08609 13.1736 2.70114 12.7207 2.47714 12.2372ZM 10.9824 5.88C 12.2809 4.59998 13.5794 4.91998 14.2287 5.56C 16.8257 8.12 11.7788 11.5 10.9824 11.5C 10.1859 11.5 5.13913 8.12 7.73615 5.56C 8.38538 4.91998 9.6839 4.59998 10.9824 5.88Z" transform="translate(5 7)"></path></g></svg>
+  </div>
+</td>
+
+
+  <td>
+      May  9, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="vgH4x5K:memo_frame">
+            <span title="Donation from Denver Technologies, Inc (DBA Warp)" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Denver Technologies, Inc (DBA Warp)
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$300.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="Denver Technologies, Inc (DBA Warp)">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/76994a7a188f0412ca977e05fd18407d?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Denver+Technologies%2C+Inc+%28DBA+Warp%29/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="LgHRxrd">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="support" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M 9 0.0236206C 9.62299 0.00744629 10.2887 0 11 0C 21.0833 0 22 1.5 22 8C 22 14.5 21.0833 16 11 16C 10.6595 16 10.3294 15.9982 10.0095 15.9947L 10.0082 15.9949C 10.0077 15.995 10.0071 15.9952 10.0067 15.9955L 5.55469 18.9636C 4.89014 19.4066 4 18.9302 4 18.1315L 4 15.4624C 4 15.4601 3.99835 15.4581 3.99609 15.4575C 1.01367 14.723 0.223999 13.1274 0.046051 10C 0.0114746 9.3927 0 8.72772 0 8C 0 1.95856 0.791901 0.236511 9 0.0236206ZM 2.47714 12.2372C 2.13568 11.5002 2 10.2927 2 8C 1.99951 6.41864 2.03903 5.33221 2.24951 4.4577C 2.41556 3.659 2.50861 3.43878 2.96548 3.12634C 3.3237 2.84076 3.99329 2.52826 5.34534 2.31049C 6.72906 2.08453 8.50272 2.00055 10.9492 2L 11 2C 13.4727 1.99945 15.2614 2.08295 16.6547 2.31049C 18.0067 2.52826 18.6763 2.84076 19.0345 3.12634C 19.4914 3.43878 19.5844 3.659 19.7505 4.4577C 19.961 5.33221 20.0005 6.41864 20 8C 20.0005 9.58136 19.961 10.6678 19.7505 11.5423C 19.5844 12.341 19.4914 12.5612 19.0345 12.8737C 18.6763 13.1592 18.0067 13.4717 16.6547 13.6895C 15.2614 13.9171 13.4727 14.0005 11 14C 10.6648 14 10.3458 13.9983 10.0316 13.9948C 9.73151 14.014 9.15842 14.1841 8.89725 14.3315L 6 16.263L 6 15.4624C 6 14.4967 5.32776 13.7258 4.47443 13.5156C 3.08609 13.1736 2.70114 12.7207 2.47714 12.2372ZM 10.9824 5.88C 12.2809 4.59998 13.5794 4.91998 14.2287 5.56C 16.8257 8.12 11.7788 11.5 10.9824 11.5C 10.1859 11.5 5.13913 8.12 7.73615 5.56C 8.38538 4.91998 9.6839 4.59998 10.9824 5.88Z" transform="translate(5 7)"></path></g></svg>
+  </div>
+</td>
+
+
+  <td>
+      Apr 21, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="LgHRxrd:memo_frame">
+            <span title="Donation from Anonymous Donor" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Anonymous Donor
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$10.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center " aria-label="">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="MNH5gEr">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Recurring donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" style=""><path fill-rule="evenodd" d="M16 13.3338C17.4608 11.8937 18.9216 12.2537 19.6521 12.9738C22.5737 15.8538 16.8959 19.6563 16 19.6563C15.1039 19.6563 9.4263 15.8538 12.348 12.9738C13.0783 12.2537 14.5392 11.8937 16 13.3338Z" clip-rule="evenodd"></path><path d="M9.96053 23.9483C13.0725 26.3238 17.4309 26.74 21.0331 24.6602C25.4114 22.1324 27.155 16.7937 25.3005 12.2397C25.0415 12.7828 24.8086 13.3481 24.5776 13.909L24.4985 14.1002C24.4379 14.2468 24.3773 14.3934 24.3165 14.538C24.119 15.0102 23.5827 15.215 23.125 14.9825C22.6804 14.7569 22.4842 14.2059 22.6768 13.7464L22.6775 13.7452C22.7619 13.5424 22.8474 13.3363 22.9325 13.1282L22.934 13.1245C23.4588 11.8481 24.0169 10.4908 24.8497 9.40302L24.8513 9.40154C25.0116 9.19605 25.2378 8.95429 25.5623 8.86732C25.8859 8.78062 26.2036 8.87667 26.4451 8.97448L26.4463 8.97519C27.7315 9.50979 28.8534 10.378 29.9454 11.2232C30.131 11.367 30.315 11.5092 30.4998 11.6502C30.8952 11.9512 31.0029 12.5269 30.7297 12.9448C30.4495 13.375 29.8824 13.4648 29.4755 13.1556C29.2947 13.0177 29.1145 12.8786 28.9356 12.7402L28.9341 12.7385C28.3382 12.2782 27.7456 11.8204 27.1271 11.4222C29.3961 16.9012 27.3081 23.3468 22.0331 26.3923C17.7113 28.8875 12.4825 28.3888 8.74828 25.5397C8.31012 25.2035 8.22728 24.576 8.56349 24.1379C8.89827 23.7016 9.52264 23.6171 9.96053 23.9483Z"></path><path fill-rule="evenodd" d="M7.68347 17.5003C7.62267 17.645 7.56225 17.7911 7.50162 17.9378L7.42237 18.1293" clip-rule="evenodd"></path><path d="M6.74357 19.7054C6.98503 19.191 7.20456 18.6581 7.42237 18.1293L7.50162 17.9378C7.56225 17.7911 7.62267 17.645 7.68347 17.5003C7.88098 17.028 8.41725 16.8233 8.87501 17.0557C9.31956 17.2813 9.51585 17.8323 9.32321 18.2918L9.32251 18.2931C9.23811 18.4958 9.15255 18.702 9.06752 18.9101L9.06603 18.9137C8.5412 20.1901 7.98313 21.5474 7.15032 22.6352L7.14865 22.6367C6.98837 22.8422 6.76224 23.0839 6.43769 23.1709C6.11411 23.2576 5.79642 23.1616 5.55487 23.0637L5.55365 23.063C4.2685 22.5284 3.14656 21.6602 2.0546 20.8151C1.86904 20.6712 1.68497 20.529 1.50018 20.388C1.10482 20.0871 0.99714 19.5113 1.27028 19.0934C1.55049 18.6632 2.11756 18.5734 2.52446 18.8826C2.70531 19.0205 2.88545 19.1596 3.06437 19.298L3.06585 19.2997C3.69776 19.7879 4.32597 20.2731 4.98519 20.6875C2.64241 15.185 4.72294 8.67352 10.0331 5.60769C14.3558 3.11197 19.5889 3.61433 23.3232 6.46496C23.7614 6.80117 23.844 7.42892 23.5078 7.86708C23.1716 8.30524 22.5439 8.38788 22.1057 8.05167C18.9938 5.67614 14.6354 5.25997 11.0331 7.33974C6.6724 9.8574 4.92526 15.1634 6.74357 19.7054Z"></path></svg>
+  </div>
+</td>
+
+
+  <td>
+      Apr 17, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="MNH5gEr:memo_frame">
+            <span title="Donation from Adam John Miller" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Adam John Miller
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$5.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="Adam John Miller">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/2cba0fdf6e00488d0c5ee31507a33c1d?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Adam+John+Miller/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="GkH8y8e">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="support" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M 9 0.0236206C 9.62299 0.00744629 10.2887 0 11 0C 21.0833 0 22 1.5 22 8C 22 14.5 21.0833 16 11 16C 10.6595 16 10.3294 15.9982 10.0095 15.9947L 10.0082 15.9949C 10.0077 15.995 10.0071 15.9952 10.0067 15.9955L 5.55469 18.9636C 4.89014 19.4066 4 18.9302 4 18.1315L 4 15.4624C 4 15.4601 3.99835 15.4581 3.99609 15.4575C 1.01367 14.723 0.223999 13.1274 0.046051 10C 0.0114746 9.3927 0 8.72772 0 8C 0 1.95856 0.791901 0.236511 9 0.0236206ZM 2.47714 12.2372C 2.13568 11.5002 2 10.2927 2 8C 1.99951 6.41864 2.03903 5.33221 2.24951 4.4577C 2.41556 3.659 2.50861 3.43878 2.96548 3.12634C 3.3237 2.84076 3.99329 2.52826 5.34534 2.31049C 6.72906 2.08453 8.50272 2.00055 10.9492 2L 11 2C 13.4727 1.99945 15.2614 2.08295 16.6547 2.31049C 18.0067 2.52826 18.6763 2.84076 19.0345 3.12634C 19.4914 3.43878 19.5844 3.659 19.7505 4.4577C 19.961 5.33221 20.0005 6.41864 20 8C 20.0005 9.58136 19.961 10.6678 19.7505 11.5423C 19.5844 12.341 19.4914 12.5612 19.0345 12.8737C 18.6763 13.1592 18.0067 13.4717 16.6547 13.6895C 15.2614 13.9171 13.4727 14.0005 11 14C 10.6648 14 10.3458 13.9983 10.0316 13.9948C 9.73151 14.014 9.15842 14.1841 8.89725 14.3315L 6 16.263L 6 15.4624C 6 14.4967 5.32776 13.7258 4.47443 13.5156C 3.08609 13.1736 2.70114 12.7207 2.47714 12.2372ZM 10.9824 5.88C 12.2809 4.59998 13.5794 4.91998 14.2287 5.56C 16.8257 8.12 11.7788 11.5 10.9824 11.5C 10.1859 11.5 5.13913 8.12 7.73615 5.56C 8.38538 4.91998 9.6839 4.59998 10.9824 5.88Z" transform="translate(5 7)"></path></g></svg>
+  </div>
+</td>
+
+
+  <td>
+      Mar 26, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="GkH8y8e:memo_frame">
+            <span title="Donation from Anonymous Donor" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Anonymous Donor
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$5.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center " aria-label="">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="4dHMAbq">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Recurring donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" style=""><path fill-rule="evenodd" d="M16 13.3338C17.4608 11.8937 18.9216 12.2537 19.6521 12.9738C22.5737 15.8538 16.8959 19.6563 16 19.6563C15.1039 19.6563 9.4263 15.8538 12.348 12.9738C13.0783 12.2537 14.5392 11.8937 16 13.3338Z" clip-rule="evenodd"></path><path d="M9.96053 23.9483C13.0725 26.3238 17.4309 26.74 21.0331 24.6602C25.4114 22.1324 27.155 16.7937 25.3005 12.2397C25.0415 12.7828 24.8086 13.3481 24.5776 13.909L24.4985 14.1002C24.4379 14.2468 24.3773 14.3934 24.3165 14.538C24.119 15.0102 23.5827 15.215 23.125 14.9825C22.6804 14.7569 22.4842 14.2059 22.6768 13.7464L22.6775 13.7452C22.7619 13.5424 22.8474 13.3363 22.9325 13.1282L22.934 13.1245C23.4588 11.8481 24.0169 10.4908 24.8497 9.40302L24.8513 9.40154C25.0116 9.19605 25.2378 8.95429 25.5623 8.86732C25.8859 8.78062 26.2036 8.87667 26.4451 8.97448L26.4463 8.97519C27.7315 9.50979 28.8534 10.378 29.9454 11.2232C30.131 11.367 30.315 11.5092 30.4998 11.6502C30.8952 11.9512 31.0029 12.5269 30.7297 12.9448C30.4495 13.375 29.8824 13.4648 29.4755 13.1556C29.2947 13.0177 29.1145 12.8786 28.9356 12.7402L28.9341 12.7385C28.3382 12.2782 27.7456 11.8204 27.1271 11.4222C29.3961 16.9012 27.3081 23.3468 22.0331 26.3923C17.7113 28.8875 12.4825 28.3888 8.74828 25.5397C8.31012 25.2035 8.22728 24.576 8.56349 24.1379C8.89827 23.7016 9.52264 23.6171 9.96053 23.9483Z"></path><path fill-rule="evenodd" d="M7.68347 17.5003C7.62267 17.645 7.56225 17.7911 7.50162 17.9378L7.42237 18.1293" clip-rule="evenodd"></path><path d="M6.74357 19.7054C6.98503 19.191 7.20456 18.6581 7.42237 18.1293L7.50162 17.9378C7.56225 17.7911 7.62267 17.645 7.68347 17.5003C7.88098 17.028 8.41725 16.8233 8.87501 17.0557C9.31956 17.2813 9.51585 17.8323 9.32321 18.2918L9.32251 18.2931C9.23811 18.4958 9.15255 18.702 9.06752 18.9101L9.06603 18.9137C8.5412 20.1901 7.98313 21.5474 7.15032 22.6352L7.14865 22.6367C6.98837 22.8422 6.76224 23.0839 6.43769 23.1709C6.11411 23.2576 5.79642 23.1616 5.55487 23.0637L5.55365 23.063C4.2685 22.5284 3.14656 21.6602 2.0546 20.8151C1.86904 20.6712 1.68497 20.529 1.50018 20.388C1.10482 20.0871 0.99714 19.5113 1.27028 19.0934C1.55049 18.6632 2.11756 18.5734 2.52446 18.8826C2.70531 19.0205 2.88545 19.1596 3.06437 19.298L3.06585 19.2997C3.69776 19.7879 4.32597 20.2731 4.98519 20.6875C2.64241 15.185 4.72294 8.67352 10.0331 5.60769C14.3558 3.11197 19.5889 3.61433 23.3232 6.46496C23.7614 6.80117 23.844 7.42892 23.5078 7.86708C23.1716 8.30524 22.5439 8.38788 22.1057 8.05167C18.9938 5.67614 14.6354 5.25997 11.0331 7.33974C6.6724 9.8574 4.92526 15.1634 6.74357 19.7054Z"></path></svg>
+  </div>
+</td>
+
+
+  <td>
+      Mar 19, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="4dHMAbq:memo_frame">
+            <span title="Donation from Adam John Miller" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Adam John Miller
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$5.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="Adam John Miller">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/2cba0fdf6e00488d0c5ee31507a33c1d?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Adam+John+Miller/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="5wHV9Pl">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Recurring donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" style=""><path fill-rule="evenodd" d="M16 13.3338C17.4608 11.8937 18.9216 12.2537 19.6521 12.9738C22.5737 15.8538 16.8959 19.6563 16 19.6563C15.1039 19.6563 9.4263 15.8538 12.348 12.9738C13.0783 12.2537 14.5392 11.8937 16 13.3338Z" clip-rule="evenodd"></path><path d="M9.96053 23.9483C13.0725 26.3238 17.4309 26.74 21.0331 24.6602C25.4114 22.1324 27.155 16.7937 25.3005 12.2397C25.0415 12.7828 24.8086 13.3481 24.5776 13.909L24.4985 14.1002C24.4379 14.2468 24.3773 14.3934 24.3165 14.538C24.119 15.0102 23.5827 15.215 23.125 14.9825C22.6804 14.7569 22.4842 14.2059 22.6768 13.7464L22.6775 13.7452C22.7619 13.5424 22.8474 13.3363 22.9325 13.1282L22.934 13.1245C23.4588 11.8481 24.0169 10.4908 24.8497 9.40302L24.8513 9.40154C25.0116 9.19605 25.2378 8.95429 25.5623 8.86732C25.8859 8.78062 26.2036 8.87667 26.4451 8.97448L26.4463 8.97519C27.7315 9.50979 28.8534 10.378 29.9454 11.2232C30.131 11.367 30.315 11.5092 30.4998 11.6502C30.8952 11.9512 31.0029 12.5269 30.7297 12.9448C30.4495 13.375 29.8824 13.4648 29.4755 13.1556C29.2947 13.0177 29.1145 12.8786 28.9356 12.7402L28.9341 12.7385C28.3382 12.2782 27.7456 11.8204 27.1271 11.4222C29.3961 16.9012 27.3081 23.3468 22.0331 26.3923C17.7113 28.8875 12.4825 28.3888 8.74828 25.5397C8.31012 25.2035 8.22728 24.576 8.56349 24.1379C8.89827 23.7016 9.52264 23.6171 9.96053 23.9483Z"></path><path fill-rule="evenodd" d="M7.68347 17.5003C7.62267 17.645 7.56225 17.7911 7.50162 17.9378L7.42237 18.1293" clip-rule="evenodd"></path><path d="M6.74357 19.7054C6.98503 19.191 7.20456 18.6581 7.42237 18.1293L7.50162 17.9378C7.56225 17.7911 7.62267 17.645 7.68347 17.5003C7.88098 17.028 8.41725 16.8233 8.87501 17.0557C9.31956 17.2813 9.51585 17.8323 9.32321 18.2918L9.32251 18.2931C9.23811 18.4958 9.15255 18.702 9.06752 18.9101L9.06603 18.9137C8.5412 20.1901 7.98313 21.5474 7.15032 22.6352L7.14865 22.6367C6.98837 22.8422 6.76224 23.0839 6.43769 23.1709C6.11411 23.2576 5.79642 23.1616 5.55487 23.0637L5.55365 23.063C4.2685 22.5284 3.14656 21.6602 2.0546 20.8151C1.86904 20.6712 1.68497 20.529 1.50018 20.388C1.10482 20.0871 0.99714 19.5113 1.27028 19.0934C1.55049 18.6632 2.11756 18.5734 2.52446 18.8826C2.70531 19.0205 2.88545 19.1596 3.06437 19.298L3.06585 19.2997C3.69776 19.7879 4.32597 20.2731 4.98519 20.6875C2.64241 15.185 4.72294 8.67352 10.0331 5.60769C14.3558 3.11197 19.5889 3.61433 23.3232 6.46496C23.7614 6.80117 23.844 7.42892 23.5078 7.86708C23.1716 8.30524 22.5439 8.38788 22.1057 8.05167C18.9938 5.67614 14.6354 5.25997 11.0331 7.33974C6.6724 9.8574 4.92526 15.1634 6.74357 19.7054Z"></path></svg>
+  </div>
+</td>
+
+
+  <td>
+      Feb 20, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="5wHV9Pl:memo_frame">
+            <span title="Donation from Adam John Miller" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Adam John Miller
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$5.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="Adam John Miller">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/2cba0fdf6e00488d0c5ee31507a33c1d?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Adam+John+Miller/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="lZHPawO">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Recurring donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" style=""><path fill-rule="evenodd" d="M16 13.3338C17.4608 11.8937 18.9216 12.2537 19.6521 12.9738C22.5737 15.8538 16.8959 19.6563 16 19.6563C15.1039 19.6563 9.4263 15.8538 12.348 12.9738C13.0783 12.2537 14.5392 11.8937 16 13.3338Z" clip-rule="evenodd"></path><path d="M9.96053 23.9483C13.0725 26.3238 17.4309 26.74 21.0331 24.6602C25.4114 22.1324 27.155 16.7937 25.3005 12.2397C25.0415 12.7828 24.8086 13.3481 24.5776 13.909L24.4985 14.1002C24.4379 14.2468 24.3773 14.3934 24.3165 14.538C24.119 15.0102 23.5827 15.215 23.125 14.9825C22.6804 14.7569 22.4842 14.2059 22.6768 13.7464L22.6775 13.7452C22.7619 13.5424 22.8474 13.3363 22.9325 13.1282L22.934 13.1245C23.4588 11.8481 24.0169 10.4908 24.8497 9.40302L24.8513 9.40154C25.0116 9.19605 25.2378 8.95429 25.5623 8.86732C25.8859 8.78062 26.2036 8.87667 26.4451 8.97448L26.4463 8.97519C27.7315 9.50979 28.8534 10.378 29.9454 11.2232C30.131 11.367 30.315 11.5092 30.4998 11.6502C30.8952 11.9512 31.0029 12.5269 30.7297 12.9448C30.4495 13.375 29.8824 13.4648 29.4755 13.1556C29.2947 13.0177 29.1145 12.8786 28.9356 12.7402L28.9341 12.7385C28.3382 12.2782 27.7456 11.8204 27.1271 11.4222C29.3961 16.9012 27.3081 23.3468 22.0331 26.3923C17.7113 28.8875 12.4825 28.3888 8.74828 25.5397C8.31012 25.2035 8.22728 24.576 8.56349 24.1379C8.89827 23.7016 9.52264 23.6171 9.96053 23.9483Z"></path><path fill-rule="evenodd" d="M7.68347 17.5003C7.62267 17.645 7.56225 17.7911 7.50162 17.9378L7.42237 18.1293" clip-rule="evenodd"></path><path d="M6.74357 19.7054C6.98503 19.191 7.20456 18.6581 7.42237 18.1293L7.50162 17.9378C7.56225 17.7911 7.62267 17.645 7.68347 17.5003C7.88098 17.028 8.41725 16.8233 8.87501 17.0557C9.31956 17.2813 9.51585 17.8323 9.32321 18.2918L9.32251 18.2931C9.23811 18.4958 9.15255 18.702 9.06752 18.9101L9.06603 18.9137C8.5412 20.1901 7.98313 21.5474 7.15032 22.6352L7.14865 22.6367C6.98837 22.8422 6.76224 23.0839 6.43769 23.1709C6.11411 23.2576 5.79642 23.1616 5.55487 23.0637L5.55365 23.063C4.2685 22.5284 3.14656 21.6602 2.0546 20.8151C1.86904 20.6712 1.68497 20.529 1.50018 20.388C1.10482 20.0871 0.99714 19.5113 1.27028 19.0934C1.55049 18.6632 2.11756 18.5734 2.52446 18.8826C2.70531 19.0205 2.88545 19.1596 3.06437 19.298L3.06585 19.2997C3.69776 19.7879 4.32597 20.2731 4.98519 20.6875C2.64241 15.185 4.72294 8.67352 10.0331 5.60769C14.3558 3.11197 19.5889 3.61433 23.3232 6.46496C23.7614 6.80117 23.844 7.42892 23.5078 7.86708C23.1716 8.30524 22.5439 8.38788 22.1057 8.05167C18.9938 5.67614 14.6354 5.25997 11.0331 7.33974C6.6724 9.8574 4.92526 15.1634 6.74357 19.7054Z"></path></svg>
+  </div>
+</td>
+
+
+  <td>
+      Jan 17, 2025
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="lZHPawO:memo_frame">
+            <span title="Donation from Adam John Miller" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Adam John Miller
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$5.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="Adam John Miller">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/2cba0fdf6e00488d0c5ee31507a33c1d?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Adam+John+Miller/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="lZHBZ4a">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="support" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M 9 0.0236206C 9.62299 0.00744629 10.2887 0 11 0C 21.0833 0 22 1.5 22 8C 22 14.5 21.0833 16 11 16C 10.6595 16 10.3294 15.9982 10.0095 15.9947L 10.0082 15.9949C 10.0077 15.995 10.0071 15.9952 10.0067 15.9955L 5.55469 18.9636C 4.89014 19.4066 4 18.9302 4 18.1315L 4 15.4624C 4 15.4601 3.99835 15.4581 3.99609 15.4575C 1.01367 14.723 0.223999 13.1274 0.046051 10C 0.0114746 9.3927 0 8.72772 0 8C 0 1.95856 0.791901 0.236511 9 0.0236206ZM 2.47714 12.2372C 2.13568 11.5002 2 10.2927 2 8C 1.99951 6.41864 2.03903 5.33221 2.24951 4.4577C 2.41556 3.659 2.50861 3.43878 2.96548 3.12634C 3.3237 2.84076 3.99329 2.52826 5.34534 2.31049C 6.72906 2.08453 8.50272 2.00055 10.9492 2L 11 2C 13.4727 1.99945 15.2614 2.08295 16.6547 2.31049C 18.0067 2.52826 18.6763 2.84076 19.0345 3.12634C 19.4914 3.43878 19.5844 3.659 19.7505 4.4577C 19.961 5.33221 20.0005 6.41864 20 8C 20.0005 9.58136 19.961 10.6678 19.7505 11.5423C 19.5844 12.341 19.4914 12.5612 19.0345 12.8737C 18.6763 13.1592 18.0067 13.4717 16.6547 13.6895C 15.2614 13.9171 13.4727 14.0005 11 14C 10.6648 14 10.3458 13.9983 10.0316 13.9948C 9.73151 14.014 9.15842 14.1841 8.89725 14.3315L 6 16.263L 6 15.4624C 6 14.4967 5.32776 13.7258 4.47443 13.5156C 3.08609 13.1736 2.70114 12.7207 2.47714 12.2372ZM 10.9824 5.88C 12.2809 4.59998 13.5794 4.91998 14.2287 5.56C 16.8257 8.12 11.7788 11.5 10.9824 11.5C 10.1859 11.5 5.13913 8.12 7.73615 5.56C 8.38538 4.91998 9.6839 4.59998 10.9824 5.88Z" transform="translate(5 7)"></path></g></svg>
+  </div>
+</td>
+
+
+  <td>
+      Oct 17, 2024
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="lZHBZ4a:memo_frame">
+            <span title="Donation from ORCA Services AG" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from ORCA Services AG
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$56.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="ORCA Services AG">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/bc61febe74cab5bee9b3954ef2e594c7?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/ORCA+Services+AG/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+<tr class="transaction transaction--positive " id="kWHRxJd">
+
+  
+
+<td class="transaction__icon " data-action="click->transactions#select" data-transaction="false">
+  <div class="tooltipped tooltipped--e" aria-label="Donation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" aria-label="support" clip-rule="evenodd" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style=""><g><path d="M 9 0.0236206C 9.62299 0.00744629 10.2887 0 11 0C 21.0833 0 22 1.5 22 8C 22 14.5 21.0833 16 11 16C 10.6595 16 10.3294 15.9982 10.0095 15.9947L 10.0082 15.9949C 10.0077 15.995 10.0071 15.9952 10.0067 15.9955L 5.55469 18.9636C 4.89014 19.4066 4 18.9302 4 18.1315L 4 15.4624C 4 15.4601 3.99835 15.4581 3.99609 15.4575C 1.01367 14.723 0.223999 13.1274 0.046051 10C 0.0114746 9.3927 0 8.72772 0 8C 0 1.95856 0.791901 0.236511 9 0.0236206ZM 2.47714 12.2372C 2.13568 11.5002 2 10.2927 2 8C 1.99951 6.41864 2.03903 5.33221 2.24951 4.4577C 2.41556 3.659 2.50861 3.43878 2.96548 3.12634C 3.3237 2.84076 3.99329 2.52826 5.34534 2.31049C 6.72906 2.08453 8.50272 2.00055 10.9492 2L 11 2C 13.4727 1.99945 15.2614 2.08295 16.6547 2.31049C 18.0067 2.52826 18.6763 2.84076 19.0345 3.12634C 19.4914 3.43878 19.5844 3.659 19.7505 4.4577C 19.961 5.33221 20.0005 6.41864 20 8C 20.0005 9.58136 19.961 10.6678 19.7505 11.5423C 19.5844 12.341 19.4914 12.5612 19.0345 12.8737C 18.6763 13.1592 18.0067 13.4717 16.6547 13.6895C 15.2614 13.9171 13.4727 14.0005 11 14C 10.6648 14 10.3458 13.9983 10.0316 13.9948C 9.73151 14.014 9.15842 14.1841 8.89725 14.3315L 6 16.263L 6 15.4624C 6 14.4967 5.32776 13.7258 4.47443 13.5156C 3.08609 13.1736 2.70114 12.7207 2.47714 12.2372ZM 10.9824 5.88C 12.2809 4.59998 13.5794 4.91998 14.2287 5.56C 16.8257 8.12 11.7788 11.5 10.9824 11.5C 10.1859 11.5 5.13913 8.12 7.73615 5.56C 8.38538 4.91998 9.6839 4.59998 10.9824 5.88Z" transform="translate(5 7)"></path></g></svg>
+  </div>
+</td>
+
+
+  <td>
+      Sep 16, 2024
+  </td>
+
+  <td class="transaction__memo">
+    <div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-start" style="gap: 1ch;">
+          <turbo-frame class="memo-frame flex" style="width:100%; overflow:hidden; text-overflow:ellipsis; flex-grow: 1" id="kWHRxJd:memo_frame">
+            <span title="Donation from Sorp" style="flex-grow: 1;">
+              <span>
+                
+
+   Donation from Sorp
+
+</span>            </span>
+</turbo-frame>        </div>
+
+      </div>
+
+        
+        
+    </div>
+  </td>
+
+  <td class="nowrap">
+    <span class="flex items-center justify-end">
+        <span><span class="success-dark medium">+$5.00</span></span>
+    </span>
+  </td>
+
+
+    <td>
+      <div class="flex items-center justify-center tooltipped tooltipped--w" aria-label="Sorp">
+          <img loading="lazy" width="24" height="24" class="rounded-full shrink-none" src="https://gravatar.com/avatar/7dcf249b14934743ce892a609247d004?s=48&amp;d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Sorp/48/ec3750/fff">
+      </div>
+    </td>
+
+</tr>
+
+
+
+          </tbody>
+        </table>
+      </div>
+      
+
+    <script>
+      window.history.pushState(null, '', "https://hcb.hackclub.com/htop/transactions?action=ledger\u0026controller=events\u0026event_id=htop\u0026type=donation");
+    </script>
+</turbo-frame></body></html>
